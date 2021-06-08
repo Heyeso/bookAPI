@@ -17,16 +17,63 @@ db.once('open', function() {
 
 
 app.get('/', function (req, res) {
-  var responseText = '<h1>Add a Book<h1>'
+  var responseText = '<h1>Add a Book</h1><p> hello </p>'
   res.send(responseText)
 })
 
-//get
-app.get('/find', function (req, res) {
-    res.send("get")
+//GET request
+app.get('/book/isbn:isbn?/title:title?', function(req, res, next) {
+    if(req.params.isbn && req.params.title) {
+        Book.find({ isbn: req.params.isbn, title: req.params.title}, function(err, data){
+            if(err)
+                res.send(err);
+            else {
+                if(data.length === 0)
+                    res.send("Book does not exist")
+                else
+                    res.send(data);
+            }
+        })
+    }
+    else
+        next()
+}, function (req, res, next) {
+    if(req.params.isbn) {
+        Book.find({isbn: req.params.isbn}, function(err, data){
+            if(err)
+                res.send(err);
+            else {
+                if(data.length === 0)
+                    res.send("Book does not exist")
+                else
+                    res.send(data);
+            }
+        })
+    }
+    else
+        next()
+
+}, function(req, res, next) {
+    if(req.params.title)
+    {
+        Book.find({title: req.params.title}, function(err, data){
+            if(err)
+                res.send(err);
+            else {
+                if(data.length === 0)
+                    res.send("Book does not exist")
+                else
+                    res.send(data);
+            }
+        })
+    }
+    else
+        next();
+}, function(req, res) {
+    res.send("Book does not exist")
 })
 
-//post
+//POST request
 app.post('/add/:isbn/:title/:author/:publisher/:pages', function (req, res) {
     let newBook = new Book({
         isbn: req.params.isbn,
@@ -35,8 +82,8 @@ app.post('/add/:isbn/:title/:author/:publisher/:pages', function (req, res) {
         publisher: req.params.publisher,
         pages: req.params.pages
     })
-    newBook.save().then(mRes => {
-        res.send(mRes);
+    newBook.save().then(data => {
+        res.send(data);
     }).catch(err => console.log("Error: \n" + err))
 })
 app.post('/add/:isbn/:title/:author/:publisher/:pages/:publish', function (req, res) {
@@ -50,8 +97,8 @@ app.post('/add/:isbn/:title/:author/:publisher/:pages/:publish', function (req, 
         publish: req.params.publish
     })
 
-    newBook.save().then(mRes => {
-        res.send(mRes);
+    newBook.save().then(data => {
+        res.send(data);
     }).catch(err => console.log("Error: \n" + err))
 })
 //   put
