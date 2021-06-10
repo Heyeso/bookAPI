@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 const Book = require("./model/book");
 const app = express();
 const port = process.env.PORT || 3000;
 
 
-mongoose.connect('mongodb+srv://adminUser:RmKcr2tky657EqFz@sandbox.shegi.mongodb.net/books_directory', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://adminUser:RmKcr2tky657EqFz@sandbox.shegi.mongodb.net/books_directory', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
 // test connection
 const db = mongoose.connection;
@@ -22,6 +23,18 @@ app.get('/', function (req, res) {
 })
 
 //GET request
+app.get('/book', function (req, res) {
+    Book.find({}, function(err, data){
+      if(err)
+          res.send(err);
+      else {
+          if(data.length === 0)
+              res.send("Book does not exist")
+          else
+              res.send(data);
+      }
+  })
+  })
 app.get('/book/isbn:isbn?/title:title?', function(req, res, next) {
     if(req.params.isbn && req.params.title) {
         Book.find({ isbn: req.params.isbn, title: req.params.title}, function(err, data){
@@ -74,7 +87,7 @@ app.get('/book/isbn:isbn?/title:title?', function(req, res, next) {
 })
 
 //POST request
-app.post('/add/:isbn/:title/:author/:publisher/:pages', function (req, res) {
+app.post('/book/add/:isbn/:title/:author/:publisher/:pages', function (req, res) {
     let newBook = new Book({
         isbn: req.params.isbn,
         title: req.params.title,
@@ -86,7 +99,7 @@ app.post('/add/:isbn/:title/:author/:publisher/:pages', function (req, res) {
         res.send(data);
     }).catch(err => console.log("Error: \n" + err))
 })
-app.post('/add/:isbn/:title/:author/:publisher/:pages/:publish', function (req, res) {
+app.post('/book/add/:isbn/:title/:author/:publisher/:pages/:publish', function (req, res) {
 
     let newBook = new Book({
         isbn: req.params.isbn,
@@ -101,13 +114,18 @@ app.post('/add/:isbn/:title/:author/:publisher/:pages/:publish', function (req, 
         res.send(data);
     }).catch(err => console.log("Error: \n" + err))
 })
-//   put
-app.put('/user', function (req, res) {
-    res.send('Got a PUT request at /user')
+// PUT request
+app.put('/book/update/isbn:isbn', bodyParser.json(), function (req, res) {
+    Book.findOneAndUpdate({isbn: req.params.isbn}, req.body, function(err, data) {
+        if(err)
+            console.log(err)
+        else
+            res.send(data);
+    })
 })
-// delete
-app.delete('/user', function (req, res) {
-    res.send('Got a DELETE request at /user')
+// DELETE request
+app.delete('/book/delete/isbn:isbn', function (req, res) {
+    Book.deleteOne({isbn: req.params.isbn})
 })
 
 
@@ -118,5 +136,3 @@ app.delete('/user', function (req, res) {
 app.listen(port, () => {
     console.log("Listening on port " + port + "...................");
 })
-
-// 9781575846932/The characters of Theophrastus/Theophrastus/J. Taylor/352
