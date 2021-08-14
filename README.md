@@ -2,14 +2,14 @@
 
 This is a basic library REST API that gets, adds, update and deletes books in and from a database.
 
-## Install
+## Install the npm and dependencies
 
-- Copy all files into a folder on desktop.
+- run `npm i`
 
-## Run the app
+## Run the API
 
-- Run `node server.js` file in `%FOLDER%/src/server.js`on the command-line to start the server.
-- or Navigate to `%FOLDER%` on command-line and run `npm start`
+- run `npm start`
+- or run `node server.js` file in `%FOLDER%/src/server.js`on the command-line to start the server.
 
 # REST API
 
@@ -21,7 +21,7 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 `GET /book/`
 
-    http://localhost:3000/book
+    `http://localhost:{PORT}/book`
 
 ### Response
 
@@ -46,9 +46,9 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 `GET /book/isbn:isbn?/title:title?`
 
-    http://localhost:3000/book/isbn9781593275846/title
-    http://localhost:3000/book/isbn/titleEloquent%20JavaScript,%20Second%20Edition
-    http://localhost:3000/book/isbn9781593275846/titleEloquent%20JavaScript,%20Second%20Edition
+    `http://localhost:{PORT}/book/isbn9781593275846/title`
+    `http://localhost:{PORT}/book/isbn/titleEloquent%20JavaScript,%20Second%20Edition`
+    `http://localhost:{PORT}/book/isbn9781593275846/titleEloquent%20JavaScript,%20Second%20Edition`
 
 ### Response
 
@@ -73,7 +73,7 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 `POST /book/add/:isbn/:title/:author/:publisher/:pages`
 
-    http://localhost:3000/book/add/9781575846111/The%20End/Abdulsalam%20Odetayo/Heyeso/421
+    `http://localhost:{PORT}/book/add/9781575846111/The%20End/Abdulsalam%20Odetayo/Heyeso/421`
 
 ### Response
 
@@ -97,7 +97,7 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 `GET /book/isbn:isbn?/title:title?`
 
-    http://localhost:3000//book/isbn/title
+    `http://localhost:{PORT}//book/isbn/title`
 
 ### Response
 
@@ -109,7 +109,7 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 `PUT /book/update/isbn:isbn`
 
-    http://localhost:3000/book/update/isbn9781575846111
+    `http://localhost:{PORT}/book/update/isbn9781575846111`
 
     ```
     Body: {
@@ -140,7 +140,7 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 `PUT /book/update/isbn:isbn`
 
-    http://localhost:3000/book/update/isbn9781575846111
+    `http://localhost:{PORT}/book/update/isbn9781575846111`
 
     ```
     Body: {
@@ -171,7 +171,7 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 `DELETE /book/delete/isbn:isbn`
 
-    http://localhost:3000/book/delete/isbn9781575846111
+    `http://localhost:{PORT}/book/delete/isbn9781575846111`
 
 ### Response
 
@@ -202,12 +202,10 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-### Request
-
 `GET /book/isbn:isbn?/title:title?`
 
-    http://localhost:3000//book/isbn9781575846111/title
+`http://localhost:{PORT}//book/isbn9781575846111/title`
 
 ### Response
 
-    	<body> Book does not exist <body>
+<body> Book does not exist <body>
