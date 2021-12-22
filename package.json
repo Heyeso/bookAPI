@@ -1,14 +1,14 @@
 {
   "name": "bookdir",
   "version": "1.0.0",
-  "description": "Book Directory",
+  "description": "Backend for book directory application",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/server.js"
   },
   "author": "Abdulsalam Odetayo",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cross-env": "^7.0.3",

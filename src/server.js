@@ -4,13 +4,13 @@ const bodyParser = require("body-parser");
 const Book = require("./model/book");
 const app = express();
 require("dotenv").config();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
-
-mongoose.connect(
-  process.env.MONGODB_URI,
-  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
-);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+});
 
 // test connection
 const db = mongoose.connection;
