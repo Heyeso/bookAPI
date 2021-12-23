@@ -20,10 +20,8 @@ db.once("open", function () {
   console.log("MongoDB connected................");
 });
 
-app.get("/", function (req, res) {
-  var responseText = "<h1>Add a Book</h1><p> hello </p>";
-  res.send(responseText);
-});
+//serve static page on launch
+app.use("/", express.static('public'));
 
 //GET request
 app.get("/book", function (req, res) {
