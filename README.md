@@ -34,8 +34,7 @@ This is a basic library REST API that gets, adds, update and deletes books in an
     		"author": "Marijn Haverbeke",
     		"publisher": "No Starch Press",
     		"pages": 472,
-    		"published": "2014-12-14T00:00:00.000Z",
-    		"publish": "2021-06-10T17:45:04.729Z"
+    		"publish": "2014-12-14T00:00:00.000Z"
     	}
     ]
     ```
