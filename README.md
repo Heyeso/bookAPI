@@ -19,9 +19,9 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`GET /book/`
+`GET /book`
 
-    `http://localhost:{PORT}/book`
+    `http://localhost:{PORT}/:api_key/book`
 
 ### Response
 
@@ -43,12 +43,15 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`GET /book/isbn:isbn?/title:title?`
+`GET /book`
 
-    `http://localhost:{PORT}/book/isbn9781593275846/title`
-    `http://localhost:{PORT}/book/isbn/titleEloquent%20JavaScript,%20Second%20Edition`
-    `http://localhost:{PORT}/book/isbn9781593275846/titleEloquent%20JavaScript,%20Second%20Edition`
-
+    `http://localhost:{PORT}/:api_key/book/`
+    ```
+    Body: {
+    		"isbn": "9781593275846",
+    		"title": "Eloquent JavaScript, Second Edition",
+    	}
+    ```
 ### Response
 
     ```
@@ -70,9 +73,18 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`POST /book/add/:isbn/:title/:author/:publisher/:pages`
+`POST /book/add`
 
-    `http://localhost:{PORT}/book/add/9781575846111/The%20End/Abdulsalam%20Odetayo/Heyeso/421`
+    `http://localhost:{PORT}/:api_key/book/add`
+    ```
+    Body: {
+    		"isbn": "9781575846111",
+    		"title": "The End",
+    		"author": "Abdulsalam Odetayo",
+    		"publisher": "Heyeso",
+    		"pages": 421,
+    	}
+    ```
 
 ### Response
 
@@ -94,9 +106,16 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`GET /book/isbn:isbn?/title:title?`
+`GET /book`
 
-    `http://localhost:{PORT}//book/isbn/title`
+    `http://localhost:{PORT}/:api_key/book`
+
+    ```
+    Body: {
+    		"isbn": "9781575846111",
+    		"title": "The End"
+    	}
+    ```
 
 ### Response
 
@@ -106,12 +125,13 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`PUT /book/update/isbn:isbn`
+`PUT /book/update`
 
-    `http://localhost:{PORT}/book/update/isbn9781575846111`
+    `http://localhost:{PORT}/:api_key/book/update`
 
     ```
     Body: {
+            "isbn": "9781575846111",
     		"title": "The Beginning",
     		"pages": 41,
     	}
@@ -137,12 +157,13 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`PUT /book/update/isbn:isbn`
+`PUT /book/update`
 
-    `http://localhost:{PORT}/book/update/isbn9781575846111`
+    `http://localhost:{PORT}/:api_key/book/update`
 
     ```
     Body: {
+        	"isbn": "9781575846111",
     		"second": "The Beginning",
     		"page": 41,
     	}
@@ -168,9 +189,14 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`DELETE /book/delete/isbn:isbn`
+`DELETE /book/delete`
 
-    `http://localhost:{PORT}/book/delete/isbn9781575846111`
+    `http://localhost:{PORT}/:api_key/book/delete`
+    ```
+    Body: {
+        	"isbn": "9781575846111"
+    	}
+    ```
 
 ### Response
 
@@ -182,10 +208,15 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`GET /book/isbn:isbn?/title:title?`
+`GET /book`
 
-`http://localhost:{PORT}//book/isbn9781575846111/title`
-
+    `http://localhost:{PORT}/:api_key/book`
+    ```
+        Body: {
+                "isbn": "9781575846111",
+                "title": "The End"
+            }
+     ```
 ### Response
 
 ```
