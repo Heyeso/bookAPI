@@ -20,9 +20,6 @@ db.once("open", function () {
   console.log("MongoDB connected................");
 });
 
-//serve static page on launch
-app.use("/", express.static("public"));
-
 //GET request
 app.get(
   "/:api_key/book",
@@ -275,6 +272,17 @@ app.delete(
     res.status(400).send({ message: "Bad Request." });
   }
 );
+/*
+    Handle other requests
+*/
+app.use("/:api_key", (req, res) => {
+  if (req.params.api_key === process.env.API_KEY)
+    res.status(404).send({ message: "Request Not Found" });
+  else res.status(401).send({ message: "Unauthorized, Invalid API key." });
+});
+app.use((req, res) => {
+  res.status(404).send({ message: "Request Not Found" });
+});
 
 app.listen(port, () => {
   console.log("Listening on port " + port + "...................");
