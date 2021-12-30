@@ -44,7 +44,7 @@ app.get(
       returns all books in the database
   */
   function (req, res) {
-    Book.find({}, {_id: 0, __v: 0}, function (err, data) {
+    Book.find({}, {_id: 0, __v: 0}, {limit: 10}, function (err, data) {
       if (err) res.status(404).send({ error: err });
       else {
         if (data.length === 0) res.status(200).send("Book does not exist");
@@ -54,7 +54,7 @@ app.get(
   }
 );
 app.get(
-  "/:api_key/book/find",
+  "/:api_key/book/:title/:isbn?",
   bodyParser.json(),
   /*
     Check if api key exact match
@@ -68,8 +68,8 @@ app.get(
     finds book with isbn number and title
   */
   function (req, res, next) {
-    if (req.body.isbn && req.body.title) {
-      Book.find({ isbn: req.body.isbn, title: req.body.title }, (err, data) => {
+    if (req.params.isbn && req.params.title) {
+      Book.find({ isbn: req.params.isbn, title: { $regex: req.params.title , $options: "i" } }, (err, data) => {
         if (err) return res.status(404).send({ error: err });
         else {
           if (data.length === 0)
@@ -83,8 +83,8 @@ app.get(
     finds book with isbn number
   */
   function (req, res, next) {
-    if (req.body.isbn) {
-      Book.find({ isbn: req.body.isbn }, (err, data) => {
+    if (req.params.isbn) {
+      Book.find({ isbn: req.params.isbn }, (err, data) => {
         if (err) return res.status(404).send({ error: err });
         else {
           if (data.length === 0)
@@ -98,8 +98,8 @@ app.get(
     finds book with title
   */
   function (req, res, next) {
-    if (req.body.title) {
-      Book.find({ title: req.body.title }, (err, data) => {
+    if (req.params.title) {
+      Book.find({ title: { $regex: req.params.title , $options: "i" } }, (err, data) => {
         if (err) return res.status(404).send({ error: err });
         else {
           if (data.length === 0)
