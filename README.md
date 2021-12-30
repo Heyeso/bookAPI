@@ -43,15 +43,10 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`GET /book`
+`GET /book/:title/:isbn?`
 
-    `http://localhost:{PORT}/:api_key/book/`
-    ```
-    Body: {
-    		"isbn": "9781593275846",
-    		"title": "Eloquent JavaScript, Second Edition",
-    	}
-    ```
+    `http://localhost:{PORT}//:api_key/book/Eloquent%20JavaScript,%20Second%20Edition`
+
 ### Response
 
     ```
@@ -106,16 +101,10 @@ This is a basic library REST API that gets, adds, update and deletes books in an
 
 ### Request
 
-`GET /book`
+`GET /book/:title/:isbn?`
 
-    `http://localhost:{PORT}/:api_key/book`
+    `http://localhost:{PORT}//:api_key/book/:title/:isbn?`
 
-    ```
-    Body: {
-    		"isbn": "9781575846111",
-    		"title": "The End"
-    	}
-    ```
 
 ### Response
 
