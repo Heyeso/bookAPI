@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const Book = require("./model/book");
 const app = express();
 require("dotenv").config();
+const cors = require("cors");
+
 const port = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGODB_URI, {
@@ -20,6 +22,13 @@ db.once("open", function () {
   console.log("MongoDB connected................");
 });
 
+app.use(
+  cors({
+    origin: `${process.env.ORIGIN}`,
+    methods: ["GET", "PUT", "POST", "DELETE"]
+  })
+);
+
 //GET request
 app.get(
   "/:api_key/book",
@@ -35,7 +44,7 @@ app.get(
       returns all books in the database
   */
   function (req, res) {
-    Book.find({}, function (err, data) {
+    Book.find({}, {_id: 0, __v: 0}, function (err, data) {
       if (err) res.status(404).send({ error: err });
       else {
         if (data.length === 0) res.status(200).send("Book does not exist");
